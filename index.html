@@ -6,7 +6,7 @@
   <title>ZhengXi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=JetBrains+Mono:wght@400&family=Work+Sans:wght@300;400&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -19,7 +19,7 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Work Sans', sans-serif;
       background: #F1F7F4;
       color: #2c2c2c;
       display: flex;
@@ -28,25 +28,113 @@
       min-height: 100vh;
       padding: 60px 48px;
       -webkit-font-smoothing: antialiased;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Grain texture overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      pointer-events: none;
+      z-index: 9999;
     }
 
     .page {
-      max-width: 480px;
+      max-width: 520px;
       width: 100%;
+      position: relative;
+    }
+
+    /* Spore print decoration */
+    .page::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -60px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background:
+        repeating-conic-gradient(
+          rgba(183,78,78,0.04) 0deg,
+          transparent 2.5deg,
+          rgba(183,78,78,0.03) 5deg
+        );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page::after {
+      content: '';
+      position: absolute;
+      top: 280px;
+      left: -80px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 40% 35%, rgba(183,78,78,0.05) 0%, transparent 50%),
+        repeating-conic-gradient(
+          rgba(183,78,78,0.02) 0deg,
+          transparent 4deg,
+          rgba(183,78,78,0.02) 8deg
+        );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* All content sections above decorations */
+    .page > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Staggered reveal */
+    .reveal {
+      opacity: 0;
+      animation: riseIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .d0 { animation-delay: 0.05s; }
+    .d1 { animation-delay: 0.15s; }
+    .d2 { animation-delay: 0.25s; }
+    .d3 { animation-delay: 0.35s; }
+    .d4 { animation-delay: 0.45s; }
+    .d5 { animation-delay: 0.55s; }
+    .d6 { animation-delay: 0.65s; }
+    .d7 { animation-delay: 0.75s; }
+
+    @keyframes riseIn {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* Name */
     .name {
-      font-size: clamp(52px, 9vw, 80px);
-      font-weight: 500;
-      letter-spacing: -3px;
+      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+      font-size: clamp(56px, 9vw, 84px);
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: -2px;
       line-height: 1;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       color: #2c2c2c;
     }
 
     .name .dot {
       color: #b74e4e;
+      font-style: italic;
     }
 
     /* Tagline */
@@ -54,39 +142,118 @@
       font-size: 14px;
       color: #888;
       font-weight: 300;
-      margin-bottom: 48px;
-      line-height: 1.7;
+      margin-bottom: 52px;
+      line-height: 1.8;
+    }
+
+    .tagline .role-line {
+      display: block;
+      margin-bottom: 12px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: #666;
     }
 
     .word {
       color: #2c2c2c;
-      font-weight: 600;
-      background: rgba(183, 78, 78, 0.12);
-      padding: 2px 6px;
+      font-weight: 500;
+      background: rgba(183, 78, 78, 0.10);
+      padding: 2px 7px;
       border-radius: 3px;
       margin: 0 2px;
+      white-space: nowrap;
+      letter-spacing: 0.2px;
     }
 
     /* Divider */
     .divider {
-      width: 32px;
+      width: 36px;
       height: 1px;
       background: #e2efe6;
-      margin-bottom: 32px;
+      margin-bottom: 36px;
+    }
+
+    /* Section label */
+    .section-label {
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 10px;
+      color: #bbb;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
     }
 
     /* Bio */
     .bio {
-      font-size: 13px;
-      color: #888;
+      font-size: 14px;
+      color: #777;
       font-weight: 300;
-      margin-bottom: 40px;
-      line-height: 1.8;
+      margin-bottom: 44px;
+      line-height: 1.85;
     }
 
     .bio strong {
       color: #2c2c2c;
       font-weight: 400;
+    }
+
+    .bio em {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: #555;
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 44px;
+    }
+
+    .tags .word {
+      margin: 0;
+      font-size: 13px;
+    }
+
+    /* Ornament divider */
+    .ornament {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .ornament-line {
+      flex: 1;
+      height: 1px;
+      background: #e2efe6;
+    }
+
+    .ornament-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #b74e4e;
+      opacity: 0.4;
+      flex-shrink: 0;
+    }
+
+    /* Currently */
+    .currently {
+      font-size: 14px;
+      color: #777;
+      font-weight: 300;
+      line-height: 1.85;
+      margin-bottom: 48px;
+    }
+
+    .currently strong {
+      color: #2c2c2c;
+      font-weight: 500;
     }
 
     /* Links */
@@ -100,13 +267,14 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 13px 0;
+      padding: 14px 0;
       border-bottom: 1px solid #e2efe6;
       text-decoration: none;
       color: #2c2c2c;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 400;
-      transition: color 0.2s ease;
+      transition: padding-left 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  color 0.25s ease;
     }
 
     .link:first-child {
@@ -115,67 +283,120 @@
 
     .link:hover {
       color: #b74e4e;
+      padding-left: 6px;
     }
 
     .link-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 14px;
     }
 
     .link-label {
-      font-size: 12px;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 11px;
       color: #bbb;
-      font-weight: 300;
-      min-width: 40px;
+      font-weight: 400;
+      min-width: 28px;
+      transition: color 0.25s ease;
+    }
+
+    .link:hover .link-label {
+      color: #b74e4e;
     }
 
     .link-text {
-      font-size: 13px;
+      font-size: 14px;
     }
 
     .link-arrow {
-      font-size: 12px;
+      font-size: 13px;
       color: #bbb;
-      transition: transform 0.2s ease, color 0.2s ease;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  color 0.25s ease;
     }
 
     .link:hover .link-arrow {
-      transform: translateX(4px);
+      transform: translateX(5px);
       color: #b74e4e;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      body {
+        padding: 40px 28px;
+        align-items: flex-start;
+        padding-top: 60px;
+      }
+
+      .page::before,
+      .page::after {
+        display: none;
+      }
+
+      .name {
+        font-size: clamp(44px, 12vw, 56px);
+      }
     }
   </style>
 </head>
 <body>
 
   <div class="page">
-    <h1 class="name">Zheng<span class="dot">.</span>Xi</h1>
-    <p class="tagline">
-      Agricultural Researcher · Edible Fungi & Mushroom Studies<br>
-      <span class="word">Running</span> · <span class="word">Music</span> · <span class="word">Photography</span> · <span class="word">Travel</span>
+    <h1 class="name reveal d0">Zheng<span class="dot">.</span>Xi</h1>
+
+    <p class="tagline reveal d1">
+      <span class="role-line">Agricultural Researcher &mdash; Edible Fungi & Mushroom Studies</span>
+      <span class="word">Running</span> &middot; <span class="word">Music</span> &middot; <span class="word">Photography</span> &middot; <span class="word">Travel</span>
     </p>
 
-    <div class="divider"></div>
+    <div class="divider reveal d2"></div>
 
-    <p class="bio">
-      Agricultural researcher focusing on <strong>edible fungi and mushroom-related studies</strong>.<br>
-      Based in <span class="word">Ganzi, China</span>.
+    <p class="bio reveal d3">
+      Agricultural researcher focusing on <strong>edible fungi and mushroom-related studies</strong>, with a particular interest in fungal resource development and sustainable cultivation.<br><br>
+      Based in <span class="word">Ganzi, China</span> <em>&mdash; exploring the rich fungal biodiversity of western Sichuan.</em>
     </p>
 
-    <div class="links">
+    <div class="section-label reveal d4">Research Focus</div>
+    <div class="tags reveal d4">
+      <span class="word">Mycology</span>
+      <span class="word">Germplasm Resource</span>
+      <span class="word">Cultivation</span>
+      <span class="word">Biodiversity</span>
+      <span class="word">Food Science</span>
+    </div>
+
+    <div class="ornament reveal d5">
+      <span class="ornament-line"></span>
+      <span class="ornament-dot"></span>
+      <span class="ornament-line"></span>
+    </div>
+
+    <p class="currently reveal d6">
+      <strong>Currently</strong> &mdash; Investigating wild edible fungi resources and developing cultivation techniques adapted to high-altitude environments.
+    </p>
+
+    <div class="links reveal d7">
       <a href="https://blog.realzhengxi.com" target="_blank" class="link">
         <div class="link-left">
           <span class="link-label">01</span>
           <span class="link-text">Blog</span>
         </div>
-        <span class="link-arrow">→</span>
+        <span class="link-arrow">&rarr;</span>
+      </a>
+      <a href="https://github.com/realzhengxi" target="_blank" class="link">
+        <div class="link-left">
+          <span class="link-label">02</span>
+          <span class="link-text">GitHub</span>
+        </div>
+        <span class="link-arrow">&rarr;</span>
       </a>
       <a href="mailto:xi.z@outlook.com" class="link">
         <div class="link-left">
-          <span class="link-label">02</span>
+          <span class="link-label">03</span>
           <span class="link-text">Email</span>
         </div>
-        <span class="link-arrow">→</span>
+        <span class="link-arrow">&rarr;</span>
       </a>
     </div>
   </div>
