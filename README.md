@@ -1,7 +1,33 @@
-## 💡 About
+<div align="center">
 
-Hi! Here is RealZhengxi. I'm an agricultural researcher focusing on edible fungi and mushroom-related studies.
+# Zheng·Xi
 
-When I'm free, I enjoy 🏃 running, 🎧 listening to music, 📷 photography, and ✈️ traveling.
+*Agricultural Researcher — Edible Fungi & Mushroom Studies*
 
-Feel free to checkout my personal [✏️ blog](https://blog.realzhengxi.com) where I share my life and research. You can also reach me via <a href="mailto:xi.z@outlook.com">Email</a>.
+`Running` · `Music` · `Photography` · `Travel`
+
+</div>
+
+---
+
+Agricultural researcher focusing on **edible fungi and mushroom-related studies**, with a particular interest in fungal resource development and sustainable cultivation.
+
+> Based in Ganzi, China — *exploring the rich fungal biodiversity of western Sichuan.*
+
+## Research Focus
+
+- **Mycology**
+- **Germplasm Resource**
+- **Cultivation**
+- **Biodiversity**
+- **Food Science**
+
+## Currently
+
+Investigating wild edible fungi resources and developing cultivation techniques adapted to high-altitude environments.
+
+## Links
+
+- [Blog](https://blog.realzhengxi.com)
+- [GitHub](https://github.com/realzhengxi)
+- [Email](mailto:xi.z@outlook.com)
