@@ -206,6 +206,49 @@
       color: #555;
     }
 
+    /* Education */
+    .edu {
+      margin-bottom: 44px;
+    }
+
+    .edu-item {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .edu-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .edu-degree {
+      color: #2c2c2c;
+      font-weight: 400;
+    }
+
+    .edu-school {
+      color: #777;
+      font-weight: 300;
+    }
+
+    .edu-school::before {
+      content: "\2014";
+      margin-right: 8px;
+      color: #ccc;
+    }
+
+    .edu-year {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 11px;
+      color: #bbb;
+      font-weight: 400;
+      flex-shrink: 0;
+    }
+
     /* Tags */
     .tags {
       display: flex;
@@ -357,8 +400,23 @@
       Based in <span class="word">Ganzi, China</span> <em>&mdash; exploring the rich fungal biodiversity of western Sichuan.</em>
     </p>
 
-    <div class="section-label reveal d4">Research Focus</div>
-    <div class="tags reveal d4">
+    <!-- Education -->
+    <div class="edu reveal d4">
+      <div class="section-label">Education</div>
+      <div class="edu-item">
+        <span class="edu-degree">M.Sc. Cell Biology</span>
+        <span class="edu-school">Hebei Normal University</span>
+        <span class="edu-year">2024</span>
+      </div>
+      <div class="edu-item">
+        <span class="edu-degree">B.Sc. Biological Science</span>
+        <span class="edu-school">Hebei Normal University</span>
+        <span class="edu-year">2021</span>
+      </div>
+    </div>
+
+    <div class="section-label reveal d5">Research Focus</div>
+    <div class="tags reveal d5">
       <span class="word">Mycology</span>
       <span class="word">Germplasm Resource</span>
       <span class="word">Cultivation</span>
@@ -366,17 +424,17 @@
       <span class="word">Food Science</span>
     </div>
 
-    <div class="ornament reveal d5">
+    <div class="ornament reveal d6">
       <span class="ornament-line"></span>
       <span class="ornament-dot"></span>
       <span class="ornament-line"></span>
     </div>
 
-    <p class="currently reveal d6">
+    <p class="currently reveal d7">
       <strong>Currently</strong> &mdash; Investigating wild edible fungi resources and developing cultivation techniques adapted to high-altitude environments.
     </p>
 
-    <div class="links reveal d7">
+    <div class="links reveal d8">
       <a href="https://blog.realzhengxi.com" target="_blank" class="link">
         <div class="link-left">
           <span class="link-label">01</span>
