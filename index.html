@@ -26,7 +26,7 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      padding: 60px 48px;
+      padding: clamp(40px, 8vw, 80px) clamp(24px, 6vw, 48px);
       -webkit-font-smoothing: antialiased;
       position: relative;
       overflow-x: hidden;
@@ -45,7 +45,7 @@
     }
 
     .page {
-      max-width: 520px;
+      max-width: clamp(340px, 90vw, 560px);
       width: 100%;
       position: relative;
     }
@@ -55,9 +55,9 @@
       content: '';
       position: absolute;
       top: -40px;
-      right: -60px;
-      width: 260px;
-      height: 260px;
+      right: clamp(-80px, -10vw, -30px);
+      width: clamp(180px, 35vw, 260px);
+      height: clamp(180px, 35vw, 260px);
       border-radius: 50%;
       background:
         repeating-conic-gradient(
@@ -73,9 +73,9 @@
       content: '';
       position: absolute;
       top: 280px;
-      left: -80px;
-      width: 180px;
-      height: 180px;
+      left: clamp(-100px, -12vw, -40px);
+      width: clamp(130px, 25vw, 180px);
+      height: clamp(130px, 25vw, 180px);
       border-radius: 50%;
       background:
         radial-gradient(circle at 40% 35%, rgba(183,78,78,0.05) 0%, transparent 50%),
@@ -123,12 +123,12 @@
     /* Name */
     .name {
       font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-      font-size: clamp(56px, 9vw, 84px);
+      font-size: clamp(46px, 8vw, 84px);
       font-weight: 300;
       font-style: italic;
-      letter-spacing: -2px;
+      letter-spacing: -0.03em;
       line-height: 1;
-      margin-bottom: 16px;
+      margin-bottom: clamp(12px, 2vw, 20px);
       color: #2c2c2c;
     }
 
@@ -139,10 +139,10 @@
 
     /* Tagline */
     .tagline {
-      font-size: 14px;
+      font-size: clamp(13px, 1.8vw, 14px);
       color: #888;
       font-weight: 300;
-      margin-bottom: 52px;
+      margin-bottom: clamp(36px, 6vw, 52px);
       line-height: 1.8;
     }
 
@@ -151,7 +151,7 @@
       margin-bottom: 12px;
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 18px;
+      font-size: clamp(15px, 2.2vw, 18px);
       color: #666;
     }
 
@@ -171,7 +171,7 @@
       width: 36px;
       height: 1px;
       background: #e2efe6;
-      margin-bottom: 36px;
+      margin-bottom: clamp(28px, 4vw, 36px);
     }
 
     /* Section label */
@@ -187,10 +187,10 @@
 
     /* Bio */
     .bio {
-      font-size: 14px;
+      font-size: clamp(13px, 1.8vw, 14px);
       color: #777;
       font-weight: 300;
-      margin-bottom: 44px;
+      margin-bottom: clamp(32px, 5vw, 44px);
       line-height: 1.85;
     }
 
@@ -202,13 +202,13 @@
     .bio em {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 16px;
+      font-size: clamp(14px, 2vw, 16px);
       color: #555;
     }
 
     /* Education */
     .edu {
-      margin-bottom: 44px;
+      margin-bottom: clamp(32px, 5vw, 44px);
     }
 
     .edu-item {
@@ -216,7 +216,7 @@
       align-items: baseline;
       gap: 10px;
       margin-bottom: 10px;
-      font-size: 14px;
+      font-size: clamp(13px, 1.8vw, 14px);
       line-height: 1.6;
     }
 
@@ -227,6 +227,7 @@
     .edu-degree {
       color: #2c2c2c;
       font-weight: 400;
+      flex-shrink: 0;
     }
 
     .edu-school {
@@ -254,12 +255,12 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 44px;
+      margin-bottom: clamp(32px, 5vw, 44px);
     }
 
     .tags .word {
       margin: 0;
-      font-size: 13px;
+      font-size: clamp(12px, 1.6vw, 13px);
     }
 
     /* Ornament divider */
@@ -267,7 +268,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 36px;
+      margin-bottom: clamp(28px, 4vw, 36px);
     }
 
     .ornament-line {
@@ -287,11 +288,11 @@
 
     /* Currently */
     .currently {
-      font-size: 14px;
+      font-size: clamp(13px, 1.8vw, 14px);
       color: #777;
       font-weight: 300;
       line-height: 1.85;
-      margin-bottom: 48px;
+      margin-bottom: clamp(36px, 6vw, 48px);
     }
 
     .currently strong {
@@ -310,11 +311,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 0;
+      padding: clamp(12px, 1.8vw, 14px) 0;
       border-bottom: 1px solid #e2efe6;
       text-decoration: none;
       color: #2c2c2c;
-      font-size: 14px;
+      font-size: clamp(13px, 1.8vw, 14px);
       font-weight: 400;
       transition: padding-left 0.3s cubic-bezier(0.16, 1, 0.3, 1),
                   color 0.25s ease;
@@ -365,11 +366,37 @@
     }
 
     /* Responsive */
+
+    /* Tablet: scale down decorations, tighten spacing */
+    @media (max-width: 768px) {
+      body {
+        align-items: flex-start;
+        padding-top: clamp(50px, 10vh, 80px);
+      }
+
+      .page::before {
+        width: clamp(140px, 30vw, 200px);
+        height: clamp(140px, 30vw, 200px);
+        top: -30px;
+        right: clamp(-50px, -8vw, -20px);
+      }
+
+      .page::after {
+        width: clamp(100px, 22vw, 150px);
+        height: clamp(100px, 22vw, 150px);
+        top: 220px;
+        left: clamp(-70px, -10vw, -30px);
+      }
+
+      .name {
+        font-size: clamp(42px, 10vw, 64px);
+      }
+    }
+
+    /* Mobile: hide decorations, stack what needs stacking */
     @media (max-width: 480px) {
       body {
-        padding: 40px 28px;
-        align-items: flex-start;
-        padding-top: 60px;
+        padding-top: 40px;
       }
 
       .page::before,
@@ -378,7 +405,36 @@
       }
 
       .name {
-        font-size: clamp(44px, 12vw, 56px);
+        font-size: clamp(40px, 12vw, 52px);
+      }
+
+      .edu-item {
+        flex-wrap: wrap;
+        gap: 2px 8px;
+      }
+
+      .edu-year {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .link {
+        padding: 13px 0;
+      }
+    }
+
+    /* Large screens: give the layout more room to breathe */
+    @media (min-width: 1200px) {
+      body {
+        padding: clamp(80px, 10vh, 120px) clamp(48px, 8vw, 120px);
+      }
+
+      .page {
+        max-width: 580px;
+      }
+
+      .name {
+        font-size: clamp(72px, 6vw, 96px);
       }
     }
   </style>
