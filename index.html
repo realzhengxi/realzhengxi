@@ -1,526 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZhengXi</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=JetBrains+Mono:wght@400&family=Work+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Zheng Xi</title>
+  <meta name="description" content="Zheng Xi - Agricultural researcher focusing on edible fungi and mycology">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      height: 100%;
-    }
-
     body {
-      font-family: 'Work Sans', sans-serif;
-      background: #F1F7F4;
-      color: #2c2c2c;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-size: 16px;
+      line-height: 1.62;
+      font-family: Menlo, Monaco, Consolas, "Courier New", sans-serif;
+      margin: 0;
       min-height: 100vh;
-      padding: clamp(40px, 8vw, 80px) clamp(24px, 6vw, 48px);
-      -webkit-font-smoothing: antialiased;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    /* Grain texture overlay */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      opacity: 0.025;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 200px 200px;
-      pointer-events: none;
-      z-index: 9999;
-    }
-
-    .page {
-      max-width: clamp(340px, 90vw, 560px);
-      width: 100%;
-      position: relative;
-    }
-
-    /* Spore print decoration */
-    .page::before {
-      content: '';
-      position: absolute;
-      top: -40px;
-      right: clamp(-80px, -10vw, -30px);
-      width: clamp(180px, 35vw, 260px);
-      height: clamp(180px, 35vw, 260px);
-      border-radius: 50%;
-      background:
-        repeating-conic-gradient(
-          rgba(183,78,78,0.04) 0deg,
-          transparent 2.5deg,
-          rgba(183,78,78,0.03) 5deg
-        );
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .page::after {
-      content: '';
-      position: absolute;
-      top: 280px;
-      left: clamp(-100px, -12vw, -40px);
-      width: clamp(130px, 25vw, 180px);
-      height: clamp(130px, 25vw, 180px);
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 40% 35%, rgba(183,78,78,0.05) 0%, transparent 50%),
-        repeating-conic-gradient(
-          rgba(183,78,78,0.02) 0deg,
-          transparent 4deg,
-          rgba(183,78,78,0.02) 8deg
-        );
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* All content sections above decorations */
-    .page > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Staggered reveal */
-    .reveal {
-      opacity: 0;
-      animation: riseIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    .d0 { animation-delay: 0.05s; }
-    .d1 { animation-delay: 0.15s; }
-    .d2 { animation-delay: 0.25s; }
-    .d3 { animation-delay: 0.35s; }
-    .d4 { animation-delay: 0.45s; }
-    .d5 { animation-delay: 0.55s; }
-    .d6 { animation-delay: 0.65s; }
-    .d7 { animation-delay: 0.75s; }
-
-    @keyframes riseIn {
-      from {
-        opacity: 0;
-        transform: translateY(16px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Name */
-    .name {
-      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-      font-size: clamp(46px, 8vw, 84px);
-      font-weight: 300;
-      font-style: italic;
-      letter-spacing: -0.03em;
-      line-height: 1;
-      margin-bottom: clamp(12px, 2vw, 20px);
-      color: #2c2c2c;
-    }
-
-    .name .dot {
-      color: #b74e4e;
-      font-style: italic;
-    }
-
-    /* Tagline */
-    .tagline {
-      font-size: clamp(13px, 1.8vw, 14px);
-      color: #888;
-      font-weight: 300;
-      margin-bottom: clamp(36px, 6vw, 52px);
-      line-height: 1.8;
-    }
-
-    .tagline .role-line {
-      display: block;
-      margin-bottom: 12px;
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: clamp(15px, 2.2vw, 18px);
-      color: #666;
-    }
-
-    .word {
-      color: #2c2c2c;
-      font-weight: 500;
-      background: rgba(183, 78, 78, 0.10);
-      padding: 2px 7px;
-      border-radius: 3px;
-      margin: 0 2px;
-      white-space: nowrap;
-      letter-spacing: 0.2px;
-    }
-
-    /* Divider */
-    .divider {
-      width: 36px;
-      height: 1px;
-      background: #e2efe6;
-      margin-bottom: clamp(28px, 4vw, 36px);
-    }
-
-    /* Section label */
-    .section-label {
-      font-family: 'JetBrains Mono', 'Courier New', monospace;
-      font-size: 10px;
-      color: #bbb;
-      font-weight: 400;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 14px;
-    }
-
-    /* Bio */
-    .bio {
-      font-size: clamp(13px, 1.8vw, 14px);
-      color: #777;
-      font-weight: 300;
-      margin-bottom: clamp(32px, 5vw, 44px);
-      line-height: 1.85;
-    }
-
-    .bio strong {
-      color: #2c2c2c;
-      font-weight: 400;
-    }
-
-    .bio em {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: clamp(14px, 2vw, 16px);
-      color: #555;
-    }
-
-    /* Education */
-    .edu {
-      margin-bottom: clamp(32px, 5vw, 44px);
-    }
-
-    .edu-item {
       display: flex;
-      align-items: baseline;
-      gap: 10px;
-      margin-bottom: 10px;
-      font-size: clamp(13px, 1.8vw, 14px);
-      line-height: 1.6;
+      flex-direction: column;
     }
 
-    .edu-item:last-child {
+    main {
+      max-width: 600px;
+      font-size: 18px;
+      flex: 1;
+      margin: 3rem auto;
+      padding: 0 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    main h1 {
+      margin-top: 0;
+    }
+
+    main p:first-of-type {
+      margin-top: 0;
+    }
+
+    main p:last-of-type {
       margin-bottom: 0;
     }
 
-    .edu-degree {
-      color: #2c2c2c;
-      font-weight: 400;
-      flex-shrink: 0;
-    }
-
-    .edu-school {
-      color: #777;
-      font-weight: 300;
-    }
-
-    .edu-school::before {
-      content: "\2014";
-      margin-right: 8px;
-      color: #ccc;
-    }
-
-    .edu-year {
-      margin-left: auto;
-      font-family: 'JetBrains Mono', 'Courier New', monospace;
-      font-size: 11px;
-      color: #bbb;
-      font-weight: 400;
-      flex-shrink: 0;
-    }
-
-    /* Tags */
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: clamp(32px, 5vw, 44px);
-    }
-
-    .tags .word {
-      margin: 0;
-      font-size: clamp(12px, 1.6vw, 13px);
-    }
-
-    /* Ornament divider */
-    .ornament {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: clamp(28px, 4vw, 36px);
-    }
-
-    .ornament-line {
-      flex: 1;
-      height: 1px;
-      background: #e2efe6;
-    }
-
-    .ornament-dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: #b74e4e;
-      opacity: 0.4;
-      flex-shrink: 0;
-    }
-
-    /* Currently */
-    .currently {
-      font-size: clamp(13px, 1.8vw, 14px);
-      color: #777;
-      font-weight: 300;
-      line-height: 1.85;
-      margin-bottom: clamp(36px, 6vw, 48px);
-    }
-
-    .currently strong {
-      color: #2c2c2c;
-      font-weight: 500;
-    }
-
-    /* Links */
-    .links {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: clamp(12px, 1.8vw, 14px) 0;
-      border-bottom: 1px solid #e2efe6;
+    main a {
+      color: inherit;
+      position: relative;
       text-decoration: none;
-      color: #2c2c2c;
-      font-size: clamp(13px, 1.8vw, 14px);
-      font-weight: 400;
-      transition: padding-left 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                  color 0.25s ease;
+      white-space: nowrap;
     }
 
-    .link:first-child {
-      border-top: 1px solid #e2efe6;
+    main a::before {
+      content: "";
+      position: absolute;
+      height: 12px;
+      bottom: 2px;
+      left: -2px;
+      width: 105%;
+      z-index: -1;
+      background-color: #42b983;
+      opacity: .3;
+      transform: skew(-35deg);
+      border-radius: 3px 8px 10px 6px;
+      transition: 0.1s ease background-color;
     }
 
-    .link:hover {
-      color: #b74e4e;
-      padding-left: 6px;
+    main a:hover::before {
+      background: #9571e3;
     }
 
-    .link-left {
+    footer {
+      margin: 0.5rem 0;
+      padding: 0 1rem;
+      opacity: 0.35;
       display: flex;
-      align-items: center;
-      gap: 14px;
+      justify-content: space-between;
     }
 
-    .link-label {
-      font-family: 'JetBrains Mono', 'Courier New', monospace;
-      font-size: 11px;
-      color: #bbb;
-      font-weight: 400;
-      min-width: 28px;
-      transition: color 0.25s ease;
-    }
-
-    .link:hover .link-label {
-      color: #b74e4e;
-    }
-
-    .link-text {
-      font-size: 14px;
-    }
-
-    .link-arrow {
-      font-size: 13px;
-      color: #bbb;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                  color 0.25s ease;
-    }
-
-    .link:hover .link-arrow {
-      transform: translateX(5px);
-      color: #b74e4e;
-    }
-
-    /* Responsive */
-
-    /* Tablet: scale down decorations, tighten spacing */
-    @media (max-width: 768px) {
-      body {
-        align-items: flex-start;
-        padding-top: clamp(50px, 10vh, 80px);
+    @media screen and (max-width: 374.5px) {
+      footer {
+        justify-content: flex-end;
       }
-
-      .page::before {
-        width: clamp(140px, 30vw, 200px);
-        height: clamp(140px, 30vw, 200px);
-        top: -30px;
-        right: clamp(-50px, -8vw, -20px);
-      }
-
-      .page::after {
-        width: clamp(100px, 22vw, 150px);
-        height: clamp(100px, 22vw, 150px);
-        top: 220px;
-        left: clamp(-70px, -10vw, -30px);
-      }
-
-      .name {
-        font-size: clamp(42px, 10vw, 64px);
-      }
-    }
-
-    /* Mobile: hide decorations, stack what needs stacking */
-    @media (max-width: 480px) {
-      body {
-        padding-top: 40px;
-      }
-
-      .page::before,
-      .page::after {
+      footer div:first-of-type {
         display: none;
       }
-
-      .name {
-        font-size: clamp(40px, 12vw, 52px);
-      }
-
-      .edu-item {
-        flex-wrap: wrap;
-        gap: 2px 8px;
-      }
-
-      .edu-year {
-        margin-left: 0;
-        width: 100%;
-      }
-
-      .link {
-        padding: 13px 0;
-      }
     }
 
-    /* Large screens: give the layout more room to breathe */
-    @media (min-width: 1200px) {
-      body {
-        padding: clamp(80px, 10vh, 120px) clamp(48px, 8vw, 120px);
-      }
-
-      .page {
-        max-width: 580px;
-      }
-
-      .name {
-        font-size: clamp(72px, 6vw, 96px);
-      }
+    footer a {
+      color: inherit;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
+  <main>
+    <div>
+      <h1>About</h1>
 
-  <div class="page">
-    <h1 class="name reveal d0">Zheng<span class="dot">.</span>Xi</h1>
+      <p>Hi! My name is Zheng Xi. I'm an agricultural researcher focusing on edible fungi and mushroom-related studies, with a particular interest in fungal resource development and sustainable cultivation.</p>
 
-    <p class="tagline reveal d1">
-      <span class="role-line">Agricultural Researcher &mdash; Edible Fungi & Mushroom Studies</span>
-      <span class="word">Running</span> &middot; <span class="word">Music</span> &middot; <span class="word">Photography</span> &middot; <span class="word">Travel</span>
-    </p>
+      <p>Based in Ganzi, China — exploring the rich fungal biodiversity of western Sichuan. I hold an M.Sc. in Cell Biology (2024) and a B.Sc. in Biological Science (2021) from Hebei Normal University. My research covers mycology, germplasm resources, cultivation, biodiversity, and food science.</p>
 
-    <div class="divider reveal d2"></div>
+      <p>When I'm free, I enjoy running, music, photography, and travel. You can checkout my <a href="https://blog.zhengxi.me">blog</a> and <a href="https://wiki.zhengxi.me">wiki</a>, or find me on <a href="https://github.com/realzhengxi">GitHub</a>.</p>
 
-    <p class="bio reveal d3">
-      Agricultural researcher focusing on <strong>edible fungi and mushroom-related studies</strong>, with a particular interest in fungal resource development and sustainable cultivation.<br><br>
-      Based in <span class="word">Ganzi, China</span> <em>&mdash; exploring the rich fungal biodiversity of western Sichuan.</em>
-    </p>
-
-    <!-- Education -->
-    <div class="edu reveal d4">
-      <div class="section-label">Education</div>
-      <div class="edu-item">
-        <span class="edu-degree">M.Sc. Cell Biology</span>
-        <span class="edu-school">Hebei Normal University</span>
-        <span class="edu-year">2024</span>
-      </div>
-      <div class="edu-item">
-        <span class="edu-degree">B.Sc. Biological Science</span>
-        <span class="edu-school">Hebei Normal University</span>
-        <span class="edu-year">2021</span>
-      </div>
+      <p>Feel free to contact me via <a href="mailto:xi.z@outlook.com">Email</a>.</p>
     </div>
-
-    <div class="section-label reveal d5">Research Focus</div>
-    <div class="tags reveal d5">
-      <span class="word">Mycology</span>
-      <span class="word">Germplasm Resource</span>
-      <span class="word">Cultivation</span>
-      <span class="word">Biodiversity</span>
-      <span class="word">Food Science</span>
-    </div>
-
-    <div class="ornament reveal d6">
-      <span class="ornament-line"></span>
-      <span class="ornament-dot"></span>
-      <span class="ornament-line"></span>
-    </div>
-
-    <p class="currently reveal d7">
-      <strong>Currently</strong> &mdash; Investigating wild edible fungi resources and developing cultivation techniques adapted to high-altitude environments.
-    </p>
-
-    <div class="links reveal d8">
-      <a href="https://realzhengxi.github.io/blog" target="_blank" class="link">
-        <div class="link-left">
-          <span class="link-label">01</span>
-          <span class="link-text">Blog</span>
-        </div>
-        <span class="link-arrow">&rarr;</span>
-      </a>
-      <a href="https://realzhengxi.github.io/zhengxiwiki/" target="_blank" class="link">
-        <div class="link-left">
-          <span class="link-label">02</span>
-          <span class="link-text">Wiki</span>
-        </div>
-        <span class="link-arrow">&rarr;</span>
-      </a>
-      <a href="https://github.com/realzhengxi" target="_blank" class="link">
-        <div class="link-left">
-          <span class="link-label">03</span>
-          <span class="link-text">GitHub</span>
-        </div>
-        <span class="link-arrow">&rarr;</span>
-      </a>
-      <a href="mailto:xi.z@outlook.com" class="link">
-        <div class="link-left">
-          <span class="link-label">04</span>
-          <span class="link-text">Email</span>
-        </div>
-        <span class="link-arrow">&rarr;</span>
-      </a>
-    </div>
-  </div>
-
+  </main>
+  <footer>
+    <div>&copy; 2025 Zheng Xi</div>
+  </footer>
 </body>
 </html>
